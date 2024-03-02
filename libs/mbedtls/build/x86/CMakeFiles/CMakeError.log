@@ -1,0 +1,44 @@
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_c6b0c/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_c6b0c.dir/build.make CMakeFiles/cmTC_c6b0c.dir/build
+gmake[1]: вход в каталог «/home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp»
+Building C object CMakeFiles/cmTC_c6b0c.dir/src.c.o
+/home/vlada/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=i686-none-linux-android19 --sysroot=/home/vlada/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DCMAKE_HAVE_LIBC_PTHREAD  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fPIE -MD -MT CMakeFiles/cmTC_c6b0c.dir/src.c.o -MF CMakeFiles/cmTC_c6b0c.dir/src.c.o.d -o CMakeFiles/cmTC_c6b0c.dir/src.c.o -c /home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp/src.c
+/home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp/src.c:13:3: warning: implicit declaration of function 'pthread_cancel' is invalid in C99 [-Wimplicit-function-declaration]
+  pthread_cancel(thread);
+  ^
+1 warning generated.
+Linking C executable cmTC_c6b0c
+/home/vlada/Android/Sdk/cmake/3.22.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c6b0c.dir/link.txt --verbose=1
+/home/vlada/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/bin/clang --target=i686-none-linux-android19 --sysroot=/home/vlada/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--fatal-warnings -Wl,--gc-sections -Wl,--no-undefined -Qunused-arguments -Wl,--gc-sections   CMakeFiles/cmTC_c6b0c.dir/src.c.o -o cmTC_c6b0c  -latomic -lm 
+ld: error: undefined symbol: pthread_cancel
+>>> referenced by src.c:13
+>>>               CMakeFiles/cmTC_c6b0c.dir/src.c.o:(main)
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+gmake[1]: *** [CMakeFiles/cmTC_c6b0c.dir/build.make:100: cmTC_c6b0c] Ошибка 1
+gmake[1]: выход из каталога «/home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/mbedtls/build/x86/CMakeFiles/CMakeTmp»
+gmake: *** [Makefile:127: cmTC_c6b0c/fast] Ошибка 2
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+

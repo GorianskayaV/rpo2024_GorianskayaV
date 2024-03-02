@@ -1,0 +1,73 @@
+Performing C++ SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/spdlog/build/x86/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_a31a9/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_a31a9.dir/build.make CMakeFiles/cmTC_a31a9.dir/build
+gmake[1]: вход в каталог «/home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/spdlog/build/x86/CMakeFiles/CMakeTmp»
+Building CXX object CMakeFiles/cmTC_a31a9.dir/src.cxx.o
+/home/vlada/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=i686-none-linux-android19 --sysroot=/home/vlada/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DCMAKE_HAVE_LIBC_PTHREAD  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -DSPDLOG_COMPILED_LIB  -fPIE -std=c++11 -MD -MT CMakeFiles/cmTC_a31a9.dir/src.cxx.o -MF CMakeFiles/cmTC_a31a9.dir/src.cxx.o.d -o CMakeFiles/cmTC_a31a9.dir/src.cxx.o -c /home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/spdlog/build/x86/CMakeFiles/CMakeTmp/src.cxx
+/home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/spdlog/build/x86/CMakeFiles/CMakeTmp/src.cxx:13:3: error: use of undeclared identifier 'pthread_cancel'
+  pthread_cancel(thread);
+  ^
+1 error generated.
+gmake[1]: *** [CMakeFiles/cmTC_a31a9.dir/build.make:79: CMakeFiles/cmTC_a31a9.dir/src.cxx.o] Ошибка 1
+gmake[1]: выход из каталога «/home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/spdlog/build/x86/CMakeFiles/CMakeTmp»
+gmake: *** [Makefile:127: cmTC_a31a9/fast] Ошибка 2
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/spdlog/build/x86/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_135cf/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_135cf.dir/build.make CMakeFiles/cmTC_135cf.dir/build
+gmake[1]: вход в каталог «/home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/spdlog/build/x86/CMakeFiles/CMakeTmp»
+Building CXX object CMakeFiles/cmTC_135cf.dir/CheckFunctionExists.cxx.o
+/home/vlada/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=i686-none-linux-android19 --sysroot=/home/vlada/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -DSPDLOG_COMPILED_LIB -DCHECK_FUNCTION_EXISTS=pthread_create -fPIE -std=c++11 -MD -MT CMakeFiles/cmTC_135cf.dir/CheckFunctionExists.cxx.o -MF CMakeFiles/cmTC_135cf.dir/CheckFunctionExists.cxx.o.d -o CMakeFiles/cmTC_135cf.dir/CheckFunctionExists.cxx.o -c /home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/spdlog/build/x86/CMakeFiles/CheckLibraryExists/CheckFunctionExists.cxx
+Linking CXX executable cmTC_135cf
+/home/vlada/Android/Sdk/cmake/3.22.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_135cf.dir/link.txt --verbose=1
+/home/vlada/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=i686-none-linux-android19 --sysroot=/home/vlada/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -DSPDLOG_COMPILED_LIB -DCHECK_FUNCTION_EXISTS=pthread_create -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--fatal-warnings -Wl,--gc-sections -Wl,--no-undefined -Qunused-arguments -Wl,--gc-sections   CMakeFiles/cmTC_135cf.dir/CheckFunctionExists.cxx.o -o cmTC_135cf  -lpthreads -latomic -lm 
+ld: error: unable to find library -lpthreads
+clang++: error: linker command failed with exit code 1 (use -v to see invocation)
+gmake[1]: *** [CMakeFiles/cmTC_135cf.dir/build.make:100: cmTC_135cf] Ошибка 1
+gmake[1]: выход из каталога «/home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/spdlog/build/x86/CMakeFiles/CMakeTmp»
+gmake: *** [Makefile:127: cmTC_135cf/fast] Ошибка 2
+
+
+
+Determining if the function pthread_create exists in the pthread failed with the following output:
+Change Dir: /home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/spdlog/build/x86/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_56e94/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_56e94.dir/build.make CMakeFiles/cmTC_56e94.dir/build
+gmake[1]: вход в каталог «/home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/spdlog/build/x86/CMakeFiles/CMakeTmp»
+Building CXX object CMakeFiles/cmTC_56e94.dir/CheckFunctionExists.cxx.o
+/home/vlada/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=i686-none-linux-android19 --sysroot=/home/vlada/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -DSPDLOG_COMPILED_LIB -DCHECK_FUNCTION_EXISTS=pthread_create -fPIE -std=c++11 -MD -MT CMakeFiles/cmTC_56e94.dir/CheckFunctionExists.cxx.o -MF CMakeFiles/cmTC_56e94.dir/CheckFunctionExists.cxx.o.d -o CMakeFiles/cmTC_56e94.dir/CheckFunctionExists.cxx.o -c /home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/spdlog/build/x86/CMakeFiles/CheckLibraryExists/CheckFunctionExists.cxx
+Linking CXX executable cmTC_56e94
+/home/vlada/Android/Sdk/cmake/3.22.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_56e94.dir/link.txt --verbose=1
+/home/vlada/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=i686-none-linux-android19 --sysroot=/home/vlada/Android/Sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -DSPDLOG_COMPILED_LIB -DCHECK_FUNCTION_EXISTS=pthread_create -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--fatal-warnings -Wl,--gc-sections -Wl,--no-undefined -Qunused-arguments -Wl,--gc-sections   CMakeFiles/cmTC_56e94.dir/CheckFunctionExists.cxx.o -o cmTC_56e94  -lpthread -latomic -lm 
+ld: error: unable to find library -lpthread
+clang++: error: linker command failed with exit code 1 (use -v to see invocation)
+gmake[1]: *** [CMakeFiles/cmTC_56e94.dir/build.make:100: cmTC_56e94] Ошибка 1
+gmake[1]: выход из каталога «/home/vlada/StudioProjects/rpo2024_GorianskayaV/libs/spdlog/build/x86/CMakeFiles/CMakeTmp»
+gmake: *** [Makefile:127: cmTC_56e94/fast] Ошибка 2
+
+
+
