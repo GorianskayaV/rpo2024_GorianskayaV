@@ -91,10 +91,7 @@ public class UserController {
             for (Museum m : museums) {
                 Optional<Museum>
                         mm = museumRepository.findById(m.id);
-                if (mm.isPresent()) {
-                    u.museums.add(mm.get());
-                    cnt++;
-                }
+                mm.ifPresent(u::addMuseums);
             }
             userRepository.save(u);
         }
@@ -111,8 +108,9 @@ public class UserController {
         if (uu.isPresent()) {
             User u = uu.get();
             for (Museum m : museums) {
-                u.removeMuseums(m);
-                cnt++;
+                Optional<Museum>
+                        mm = museumRepository.findById(m.id);
+                mm.ifPresent(u::removeMuseums);
             }
             userRepository.save(u);
         }
