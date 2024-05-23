@@ -27,12 +27,12 @@ public class Painting {
 
     @JsonIgnore
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "artistid", referencedColumnName = "id")
+    @JoinColumn(name = "artist", referencedColumnName = "id")
     public Artist artist;
 
     @JsonIgnore
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "museumid", referencedColumnName = "id")
+    @JoinColumn(name = "museum", referencedColumnName = "id")
     public Museum museum;
 
     @Column(name = "year", nullable = true)

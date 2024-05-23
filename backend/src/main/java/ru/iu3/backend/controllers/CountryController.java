@@ -2,6 +2,9 @@ package ru.iu3.backend.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +24,15 @@ public class CountryController {
     @Autowired
     CountryRepository countryRepository;
 
+//    @GetMapping("/countries")
+//    public List
+//    getAllCountries() {
+//        return countryRepository.findAll();
+//    }
+
     @GetMapping("/countries")
-    public List
-    getAllCountries() {
-        return countryRepository.findAll();
+    public Page<Country> getAllCountries(@RequestParam("page") int page, @RequestParam("limit") int limit) {
+        return countryRepository.findAll(PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "name")));
     }
 
     @GetMapping("/countries/{id}")
@@ -89,7 +97,6 @@ public class CountryController {
         }
     }
 
-
 //        Country country = null;
 //        Optional<Country>
 //                cc = countryRepository.findById(countryId);
@@ -124,7 +131,6 @@ public class CountryController {
         return ResponseEntity.ok(resp);
     }
 
-
     @GetMapping("/countries/{id}/artists")
     public ResponseEntity<List<Artist>> getCountryArtists(@PathVariable(value = "id") Long countryId) {
         Optional<Country> cc = countryRepository.findById(countryId);
@@ -133,5 +139,4 @@ public class CountryController {
         }
         return ResponseEntity.ok(new ArrayList<Artist>());
     }
-
 }
