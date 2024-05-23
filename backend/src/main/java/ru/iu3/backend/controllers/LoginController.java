@@ -1,6 +1,5 @@
 package ru.iu3.backend.controllers;
 
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +31,6 @@ public class LoginController {
                 String hash1 = u2.password;
                 String salt = u2.salt;
                 String hash2 = Utils.ComputeHash(pwd, salt);
-
                 if (hash1.toLowerCase().equals(hash2.toLowerCase())) {
                     String token = UUID.randomUUID().toString();
                     u2.token = token;
@@ -40,7 +38,6 @@ public class LoginController {
                     User u3 = userRepository.saveAndFlush(u2);
                     return new ResponseEntity<Object>(u3, HttpStatus.OK);
                 }
-
             }
         }
         return new ResponseEntity<Object>(HttpStatus.UNAUTHORIZED);
@@ -50,9 +47,7 @@ public class LoginController {
     public ResponseEntity logout(@RequestHeader(value = "Authorization", required = false) String token) {
         if (token != null && !token.isEmpty()) {
             token = StringUtils.removeStart(token, "Bearer").trim();
-            Optional uu = userRepository.findByToken(token);
             if (uu.isPresent()) {
-                User u = (User) uu.get();
                 u.token = null;
                 userRepository.save(u);
                 return new ResponseEntity(HttpStatus.OK);
